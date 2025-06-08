@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основы администрирования: Роли и обязанности системного администратора</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Стили для header */
+        /* Шапка */
+        :root {
+  --primary: #4A89DC;           /* Основной голубой */
+  --primary-light: #E4F1FE;     /* Светлый голубой фон */
+  --primary-dark: #3B7DD8;      /* Темный голубой для ховеров */
+  --accent: #5D9CEC;            /* Акцентный голубой */
+  --background: #F9FCFF;        /* Очень светлый голубой фон */
+  --text-dark: #2C3E50;         /* Основной текст */
+  --text-light: #FFFFFF;        /* Белый текст */
+  --border-radius: 10px;        /* Скругление углов */
+  --box-shadow: 0 4px 20px rgba(93, 156, 236, 0.15); /* Голубая тень */
+  --card-bg: #FFFFFF;           /* Фон карточек */
+  --border-color: #D6E4F0;      /* Цвет границ */
+}
+
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1.2rem 2rem;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--text-light);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+            
+        /* Основные стили */
+        body {
+            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .centered-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: left;
+            background-color: #ffffff;
+        }
+        
+        .kb-article h1 {
+            color: #000000;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #000000;
+            margin-top: 25px;
+        }
+        
+        .meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Стили для блоков */
+        .protection-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .method-card {
+            flex: 1 1 300px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        /* Стили для таблиц */
+        .encryption-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .encryption-comparison th, 
+        .encryption-comparison td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .encryption-comparison th {
+            background-color: #f2f2f2;
+        }
+        
+        /* Стили для важных заметок */
+        .security-alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #e53e3e;
+            background-color: #fff5f5;
+            border-radius: 4px;
+        }
+        
+        /* Стили для теста */
+        .test-container {
+            margin: 40px 0;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .options {
+            margin-left: 5px;
+        }
+        
+        .option {
+            margin: 12px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #a0aec0;
+            border-radius: 50%;
+            margin-right: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option input[type="checkbox"] {
+            border-radius: 4px;
+        }
+        
+        .option input[type="radio"]:checked,
+        .option input[type="checkbox"]:checked {
+            border-color: #3182ce;
+            background-color: #3182ce;
+        }
+        
+        .option input[type="radio"]:checked::after,
+        .option input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .option label {
+            cursor: pointer;
+            color: #000000;
+        }
+        
+        .text-answer {
+            width: 100%;
+            padding: 12px 15px;
+            margin-top: 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+        }
+        
+        button[type="button"] {
+            padding: 12px 24px;
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 25px auto 0;
+            display: block;
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+        
+        .correct {
+            color: #38a169;
+        }
+        
+        .incorrect {
+            color: #e53e3e;
+        }
+        
+        @media (max-width: 768px) {
+            .protection-methods {
+                flex-direction: column;
+            }
+            
+            .encryption-comparison {
+                font-size: 0.85rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+        }
+        
+        /* Стили для подвала */
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 3rem 1rem;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            line-height: 1.9;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.2rem 0;
+        }
+
+        .footer-section a:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-contact svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-section {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Газпром">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="doki/">Документы</a></li>
+                    <li><a href="bezopasnost-base/">Безопасность</a></li>
+                    <li><a href="knowledge-base/">Техническая база</a></li>
+                    <li><a href="inzident/">Инциденты и решения</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<article class="kb-article">
+    <div class="centered-content">
+        <h1><?= $page_title ?></h1>
+        <div class="meta">
+            <span>Категория: <a href="knowledge-base/it-admin/">IT-администрирование</a></span>
+            <span>Обновлено: <?= date('d.m.Y') ?></span>
+        </div>
+
+        <div class="content">
+            <h2>Введение в профессию системного администратора</h2>
+            <p>Системный администратор является ключевой фигурой в обеспечении бесперебойной работы корпоративной IT-инфраструктуры. В современных условиях, когда цифровые технологии проникли во все бизнес-процессы, роль сисадмина вышла за рамки простого технического специалиста, превратившись в стратегически важную позицию. Особенно это актуально для крупных корпораций, таких как Газпром, где от стабильности IT-систем зависит работа критически важных объектов нефтегазовой отрасли.</p>
+            <p>Профессия системного администратора требует не только глубоких технических знаний, но и понимания бизнес-процессов компании, умения работать с людьми и находить баланс между безопасностью и удобством использования систем. Современный сисадмин - это универсальный специалист, сочетающий в себе навыки программиста, инженера, психолога и менеджера.</p>
+
+            <h2>Основные роли системного администратора</h2>
+            
+            <h3>Администратор серверов и сетей</h3>
+            <p>Эта роль предполагает настройку, поддержку и мониторинг серверного оборудования и сетевой инфраструктуры. В обязанности входит установка и настройка операционных систем (Windows Server, Linux), управление виртуальными средами (VMware, Hyper-V), настройка сетевого оборудования (Cisco, MikroTik), обеспечение отказоустойчивости и производительности систем. В крупных организациях часто выделяют отдельных специалистов по Linux- и Windows-серверам, сетевых инженеров и виртуализации.</p>
+            
+            <h3>Администратор службы каталогов</h3>
+            <p>Работа с Active Directory или другими службами каталогов - критически важная функция в корпоративной среде. Специалист в этой области отвечает за управление пользователями и группами, настройку групповых политик (GPO), распределение прав доступа, организацию единого входа (SSO) и интеграцию с другими системами. В нефтегазовых компаниях особое внимание уделяется разграничению доступа к критически важным системам управления технологическими процессами.</p>
+            
+            <h3>Администратор безопасности</h3>
+            <p>В условиях растущих киберугроз эта роль становится все более значимой. Специалист по безопасности настраивает и поддерживает межсетевые экраны, системы обнаружения и предотвращения вторжений, антивирусную защиту, средства криптографии и двухфакторной аутентификации. В нефтегазовой отрасли, где многие объекты относятся к критической информационной инфраструктуре, соблюдение требований ФСТЭК и ФСБ является обязательным.</p>
+
+            <h2>Обязанности системного администратора</h2>
+            
+            <h3>Ежедневные операционные задачи</h3>
+            <p>Каждый день сисадмин решает широкий круг задач: от создания учетных записей новых сотрудников и сброса паролей до устранения неполадок в работе сетевых сервисов. Важной частью работы является мониторинг состояния систем с помощью специализированного ПО (Zabbix, PRTG, Nagios), анализ логов, планирование и выполнение обновлений программного обеспечения. В корпоративной среде особое значение имеет документирование всех изменений и инцидентов.</p>
+            
+            <h3>Планирование и развитие инфраструктуры</h3>
+            <p>Помимо операционной работы, системный администратор участвует в планировании развития IT-инфраструктуры: подборе нового оборудования, проектировании сетевой архитектуры, внедрении новых технологий. В нефтегазовых компаниях это может включать организацию IT-инфраструктуры на новых месторождениях, интеграцию систем мониторинга трубопроводов, внедрение промышленного IoT.</p>
+            
+            <h3>Обеспечение непрерывности бизнеса</h3>
+            <p>Разработка и поддержка стратегий резервного копирования, создание планов аварийного восстановления (Disaster Recovery), организация отказоустойчивых решений - все это входит в зону ответственности системного администратора. В условиях нефтегазовой отрасли, где простой систем может привести к многомиллионным убыткам, эти аспекты имеют особое значение.</p>
+
+            <h2>Особенности работы в нефтегазовой отрасли</h2>
+            
+            <h3>Работа с промышленными системами</h3>
+            <p>Системные администраторы в Газпроме и подобных компаниях часто сталкиваются с необходимостью администрирования промышленных систем управления (АСУ ТП, SCADA). Эти системы требуют особого подхода, так как работают в реальном времени и управляют физическими процессами. Важно понимать принципы работы операционных технологий (OT) и уметь настраивать безопасное взаимодействие между IT- и OT-сетями.</p>
+            
+            <h3>Поддержка удаленных объектов</h3>
+            <p>Нефтегазовые компании имеют множество удаленных объектов - буровые установки, компрессорные станции, трубопроводы, расположенные в труднодоступных районах. Обеспечение их IT-инфраструктурой требует использования спутниковой связи, автономных источников питания, специализированного оборудования, устойчивого к экстремальным условиям.</p>
+            
+            <h3>Соблюдение отраслевых стандартов</h3>
+            <p>Работа в нефтегазовой отрасли предполагает соблюдение множества отраслевых стандартов и нормативов: от требований к взрывозащищенному оборудованию до специальных регламентов по защите информации. Системный администратор должен хорошо ориентироваться в этих требованиях и уметь их реализовывать на практике.</p>
+
+            <h2>Необходимые навыки и компетенции</h2>
+            <p>Современный системный администратор должен обладать широким спектром технических навыков: от настройки сетевого оборудования до основ программирования для автоматизации рутинных задач. Не менее важны "мягкие" навыки: умение объяснять сложные технические вопросы простым языком, работать в команде, управлять приоритетами и стрессоустойчивость. В нефтегазовой отрасли дополнительно требуются знания отраслевых стандартов и специфического ПО.</p>
+
+            <h2>Заключение</h2>
+            <p>Профессия системного администратора в корпоративной среде, особенно в такой сложной и ответственной отрасли как нефтегазовая, представляет собой интересный вызов для IT-специалистов. Она требует постоянного обучения и адаптации к новым технологиям, но предлагает уникальные возможности для профессионального роста и участия в крупных инфраструктурных проектах. Грамотный системный администратор - это не просто технический специалист, а стратегически важный сотрудник, вносящий существенный вклад в успех всей компании.</p>
+
+            <div class="test-container">
+                <h2>Проверьте свои знания</h2>
+                <form id="sysAdminTest">
+                    
+                    <!-- Вопрос 1 -->
+                    <div class="question">
+                        <p><strong>1. Какая из перечисленных систем чаще всего используется для управления пользователями в корпоративной среде?</strong></p>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q1" id="q1a" value="a">
+                                <label for="q1a">Microsoft Exchange</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" id="q1b" value="b">
+                                <label for="q1b">Active Directory</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" id="q1c" value="c">
+                                <label for="q1c">Oracle Database</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="correct_q1" value="b">
+                    </div>
+                    
+                    <!-- Вопрос 2 -->
+                    <div class="question">
+                        <p><strong>2. Какие из перечисленных задач относятся к ежедневным обязанностям сисадмина? (Выберите все верные варианты)</strong></p>
+                        <div class="options">
+                            <div class="option">
+                                <input type="checkbox" name="q2" id="q2a" value="a">
+                                <label for="q2a">Создание учетных записей новых сотрудников</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" name="q2" id="q2b" value="b">
+                                <label for="q2b">Настройка групповых политик</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" name="q2" id="q2c" value="c">
+                                <label for="q2c">Разработка мобильных приложений</label>
+                            </div>
+                            <div class="option">
+                                <input type="checkbox" name="q2" id="q2d" value="d">
+                                <label for="q2d">Мониторинг состояния серверов</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="correct_q2" value="a,b,d">
+                    </div>
+                    
+                    <!-- Вопрос 3 -->
+                    <div class="question">
+                        <p><strong>3. Как называется зона, используемая для безопасного обмена данными между корпоративной сетью и промышленными системами?</strong></p>
+                        <input type="text" id="q3_answer" class="text-answer" placeholder="Введите ответ">
+                        <input type="hidden" id="correct_q3" value="DMZ">
+                    </div>
+                    
+                    <!-- Вопрос 4 -->
+                    <div class="question">
+                        <p><strong>4. Почему работа системного администратора в нефтегазовой отрасли имеет особую специфику?</strong></p>
+                        <textarea id="q4_answer" class="text-answer" rows="4" placeholder="Опишите основные причины"></textarea>
+                        <input type="hidden" id="correct_q4_keywords" value="промышленные,удаленные,безопасность,стандарты,надежность">
+                    </div>
+                    
+                    <!-- Вопрос 5 -->
+                    <div class="question">
+                        <p><strong>5. Какое из перечисленных качеств наиболее важно для системного администратора?</strong></p>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q5" id="q5a" value="a">
+                                <label for="q5a">Стрессоустойчивость</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q5" id="q5b" value="b">
+                                <label for="q5b">Умение работать в команде</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q5" id="q5c" value="c">
+                                <label for="q5c">Технические знания</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q5" id="q5d" value="d">
+                                <label for="q5d">Все перечисленные</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="correct_q5" value="d">
+                    </div>
+                    
+                    <button type="button" onclick="checkSysAdminTest()">Проверить ответы</button>
+                </form>
+                
+                <div id="testResults" class="results"></div>
+            </div>
+        </div>
+    </div>
+</article>
+<footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/gazprom-logo-white.png" alt="Логотип Газпрома">
+                    <h2>ПАО «Газпром»</h2>
+                </div>
+                <p>Корпоративный обучающий портал для сотрудников компании</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Телефон: +7 (495) 719-30-01</li>
+                    <li>Email: training@gazprom.ru</li>
+                    <li>Адрес: Уфа, ул. Пугачева, 112/1</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="doki/">Документы</a></li>
+                    <li><a href="bezopasnost-base/">Безопасность</a></li>
+                    <li><a href="knowledge-base/">Техническая база</a></li>
+                    <li><a href="inzident/">Инциденты и решения</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 ПАО «Газпром». Все права защищены.<br>
+            Сайт предназначен исключительно для внутреннего использования сотрудниками компании.
+        </div>
+    </footer>
+<script>
+function checkSysAdminTest() {
+    let score = 0;
+    let resultsHTML = "<h3>Результаты теста:</h3><ol>";
+    const keywordThreshold = 3; // Минимальное количество ключевых слов для зачета вопроса 4
+    
+    // Вопрос 1
+    const q1Selected = document.querySelector('input[name="q1"]:checked');
+    if (q1Selected && q1Selected.value === document.getElementById('correct_q1').value) {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 1: Правильно! Active Directory - стандарт для управления пользователями в корпоративной среде.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 1: Неверно. Правильный ответ: Active Directory.</li>`;
+    }
+    
+    // Вопрос 2 (множественный выбор)
+    const q2Selected = Array.from(document.querySelectorAll('input[name="q2"]:checked')).map(el => el.value).sort().join(',');
+    const q2Correct = document.getElementById('correct_q2').value.split(',').sort().join(',');
+    if (q2Selected === q2Correct) {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 2: Верно! Все выбранные варианты являются типичными задачами сисадмина.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 2: Неполный ответ. Создание учетных записей, настройка политик и мониторинг серверов - это ежедневные задачи.</li>`;
+    }
+    
+    // Вопрос 3
+    const q3Answer = document.getElementById('q3_answer').value.trim().toUpperCase();
+    if (q3Answer === 'DMZ' || q3Answer === 'ДМЗ') {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 3: Правильно! DMZ (демилитаризованная зона) обеспечивает безопасный обмен данными.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 3: Неверно. Правильный ответ: DMZ.</li>`;
+    }
+    
+    // Вопрос 4 (анализ ключевых слов)
+    const q4Answer = document.getElementById('q4_answer').value.toLowerCase();
+    const keywords = document.getElementById('correct_q4_keywords').value.split(',');
+    let foundKeywords = keywords.filter(word => q4Answer.includes(word));
+    
+    if (foundKeywords.length >= keywordThreshold) {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 4: Принято! Вы указали ключевые аспекты: ${foundKeywords.join(', ')}.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 4: Ответ недостаточно полный. Ожидались упоминания: промышленные системы, удаленные объекты, требования безопасности, отраслевые стандарты, надежность.</li>`;
+    }
+    
+    // Вопрос 5
+    const q5Selected = document.querySelector('input[name="q5"]:checked');
+    if (q5Selected && q5Selected.value === document.getElementById('correct_q5').value) {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 5: Абсолютно верно! Все перечисленные качества важны для системного администратора.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 5: Не совсем так. Все варианты верны - хороший сисадмин должен сочетать технические знания с личными качествами.</li>`;
+    }
+    
+    resultsHTML += `</ol><p><strong>Итоговый результат: ${score} из 5 (${Math.round(score/5*100)}%)</strong></p>`;
+    document.getElementById('testResults').innerHTML = resultsHTML;
+    document.getElementById('testResults').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

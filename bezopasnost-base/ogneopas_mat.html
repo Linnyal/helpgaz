@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила хранения и использования легковоспламеняющихся веществ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+         /* Стили для header */
+        /* Шапка */
+:root {
+  --primary: #4A89DC;           /* Основной голубой */
+  --primary-light: #E4F1FE;     /* Светлый голубой фон */
+  --primary-dark: #3B7DD8;      /* Темный голубой для ховеров */
+  --accent: #5D9CEC;            /* Акцентный голубой */
+  --background: #F9FCFF;        /* Очень светлый голубой фон */
+  --text-dark: #2C3E50;         /* Основной текст */
+  --text-light: #FFFFFF;        /* Белый текст */
+  --border-radius: 10px;        /* Скругление углов */
+  --box-shadow: 0 4px 20px rgba(93, 156, 236, 0.15); /* Голубая тень */
+  --card-bg: #FFFFFF;           /* Фон карточек */
+  --border-color: #D6E4F0;      /* Цвет границ */
+}
+      /* Шапка */
+header {
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: 1.2rem 2rem;
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+nav ul {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--text-light);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+nav a.active {
+  font-weight: 600;
+}
+
+nav a.active::after {
+  width: 100%;
+}
+    body {
+        background-color: #ffffff !important;
+    }
+    
+    .centered-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: left;
+        background-color: #ffffff;
+    }
+    
+    .test-container {
+        margin: 40px 0;
+        padding: 25px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #f8fafc;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    h2 {
+        color: #e74c3c;
+        margin-top: 30px;
+    }
+    
+    .question {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed #e2e8f0;
+    }
+    
+    .question:last-child {
+        border-bottom: none;
+    }
+    
+    .question p {
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+    }
+    
+    .options {
+        margin-left: 5px;
+    }
+    
+    .option {
+        margin: 12px 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    
+    .option input[type="radio"] {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #a0aec0;
+        border-radius: 50%;
+        margin-right: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .option input[type="radio"]:checked {
+        border-color: #e74c3c;
+        background-color: #e74c3c;
+    }
+    
+    .option input[type="radio"]:checked::after {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .option label {
+        cursor: pointer;
+        color: #000000;
+        transition: color 0.2s ease;
+    }
+    
+    .text-answer {
+        width: 100%;
+        padding: 12px 15px;
+        margin-top: 8px;
+        border: 1px solid #cbd5e0;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        color: #000000;
+    }
+    
+    .text-answer:focus {
+        border-color: #e74c3c;
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+    }
+    
+    button[type="button"] {
+        padding: 12px 24px;
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: block;
+        margin: 25px auto 0;
+    }
+    
+    button[type="button"]:hover {
+        background-color: #c0392b;
+        transform: translateY(-1px);
+    }
+    
+    .results {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        display: none;
+        color: #000000;
+    }
+    
+    .correct {
+        color: #38a169;
+    }
+    
+    .incorrect {
+        color: #e53e3e;
+    }
+    
+    .notice {
+        padding: 15px;
+        margin: 20px 0;
+        border-left: 4px solid;
+        border-radius: 4px;
+    }
+    
+    .notice.info {
+        background-color: #ebf8ff;
+        border-color: #3182ce;
+    }
+    
+    .notice.warning {
+        background-color: #fff5f5;
+        border-color: #e53e3e;
+    }
+    
+    @media (max-width: 768px) {
+        .test-container {
+            padding: 15px;
+        }
+    }
+    
+    .kb-article h1 {
+        color: #000000;
+        border-bottom: 2px solid #e74c3c;
+        padding-bottom: 10px;
+    }
+    
+    .kb-article h3 {
+        color: #000000;
+    }
+    
+    .meta {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 15px;
+    }
+    
+    .meta a {
+        color: #e74c3c;
+        text-decoration: none;
+    }
+    
+    .meta a:hover {
+        text-decoration: underline;
+    }
+         /* Стили для подвала */
+footer {
+  background-color: var(--primary); /* Основной голубой цвет */
+  color: var(--text-light);
+  padding: 3rem 1rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin-top: 4rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.footer-logo img {
+  height: 50px;
+  filter: brightness(0) invert(1); /* Делаем лого белым */
+  transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover {
+  transform: scale(1.05);
+}
+
+.footer-section h3 {
+  border-bottom: 2px solid var(--accent); /* Акцентный голубой */
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  line-height: 1.9;
+}
+
+.footer-section a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 0.2rem 0;
+}
+
+.footer-section a:hover {
+  color: var(--text-light);
+  transform: translateX(5px);
+  text-decoration: none;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer-contact svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--text-light);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+</style>
+</head>
+<body>
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <img src="images/logo.png" alt="Газпром">
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html" id="nav-home">Главная</a></li>
+            <li><a href="doki/" id="nav-docs">Документы</a></li>
+            <li><a href="bezopasnost-base/" id="nav-safety">Безопасность</a></li>
+            <li><a href="knowledge-base/" id="nav-knowledge">Техническая база</a></li>
+            <li><a href="inzident/" id="nav-incidents">Инциденты и решения</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+<article class="kb-article">
+    <div class="centered-content">
+        <h1><?= $page_title ?></h1>
+        <div class="meta">
+            <span>Категория: <a href="knowledge-base/fire-safety/">Пожарная безопасность</a></span>
+            <span>Обновлено: <?= date('d.m.Y') ?></span>
+        </div>
+
+        <div class="content">
+            <h2>Классификация легковоспламеняющихся веществ</h2>
+            <p>Легковоспламеняющиеся вещества представляют особую опасность на всех этапах работы с ними - от хранения сырья до утилизации готовой продукции. К этой категории относятся жидкости с температурой вспышки ниже 61°C, газы, способные гореть в смеси с воздухом, а также твердые материалы, легко загорающиеся от кратковременного воздействия пламени. Особое внимание следует уделять растворителям, топливам, лакам и краскам, которые широко используются в промышленности и быту.</p>
+            <p>Каждое вещество имеет свои характеристики пожароопасности, которые обязательно должны учитываться при организации рабочих процессов. Температура вспышки, пределы воспламеняемости и группа горючести - ключевые параметры, определяющие условия безопасного хранения и применения. Неправильное обращение с такими материалами может привести к мгновенному возгоранию с тяжелыми последствиями.</p>
+
+            <h2>Требования к помещениям для хранения</h2>
+            <p>Специально оборудованные склады для легковоспламеняющихся веществ должны соответствовать строгим нормам пожарной безопасности. Обязательна принудительная вентиляция, обеспечивающая постоянный воздухообмен и предотвращающая скопление паров. Электрооборудование в таких помещениях выполняется во взрывозащищенном исполнении, а все металлические конструкции заземляются для исключения искрообразования.</p>
+            <p>Хранилища оборудуются автоматическими системами пожаротушения, предпочтительно газовыми или порошковыми. Стены и перекрытия должны иметь соответствующий предел огнестойкости - не менее 2 часов. Запрещается совместное хранение веществ, которые при взаимодействии могут вызвать пожар или взрыв. Особые требования предъявляются к емкостям для хранения - они должны быть герметичными, коррозионностойкими и иметь аварийные клапаны.</p>
+
+            <h2>Безопасная работа с горючими материалами</h2>
+            <p>При работе с легковоспламеняющимися веществами необходимо строго соблюдать технологические регламенты. Все операции должны проводиться в вытяжных шкафах или под местной вентиляцией. Запрещается использовать открытый огонь в радиусе 50 метров от места работ. Перенос веществ между емкостями осуществляется с применением искробезопасного оборудования, а розлив - через заземленные воронки.</p>
+            <p>Особую осторожность следует проявлять при нагреве горючих жидкостей - температура не должна приближаться к точке вспышки. Остатки пролитых веществ немедленно убираются с помощью негорючих сорбентов. После завершения работ все оборудование тщательно очищается, а использованные материалы помещаются в специальные контейнеры для последующей утилизации.</p>
+
+            <h2>Транспортировка и утилизация</h2>
+            <p>Перевозка легковоспламеняющихся веществ осуществляется специальным транспортом, оборудованным средствами пожаротушения и сигнализацией. Тара должна быть прочной, герметичной и маркированной согласно международным стандартам. При погрузочно-разгрузочных работах исключаются удары и падения емкостей, а также их перегрев на солнце.</p>
+            <p>Утилизация остатков и отходов проводится на специализированных предприятиях с применением безопасных методов нейтрализации. Категорически запрещается слив горючих жидкостей в канализацию или на почву. Отработанные материалы собираются в отдельные герметичные контейнеры и передаются лицензированным организациям. Персонал, занятый на таких работах, проходит специальное обучение и обеспечивается средствами индивидуальной защиты.</p>
+
+            <div class="test-container">
+                <h2>Проверьте свои знания</h2>
+                <form id="flammableTest">
+                    
+                    <!-- Вопрос 1 -->
+                    <div class="question">
+                        <p><strong>1. Какая температура вспышки характерна для легковоспламеняющихся жидкостей?</strong></p>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q1" id="q1a" value="a">
+                                <label for="q1a">Выше 100°C</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" id="q1b" value="b">
+                                <label for="q1b">Ниже 61°C</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q1" id="q1c" value="c">
+                                <label for="q1c">Ровно 0°C</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="correct_q1" value="b">
+                    </div>
+                    
+                    <!-- Вопрос 2 -->
+                    <div class="question">
+                        <p><strong>2. Какое электрооборудование разрешено в помещениях для хранения легковоспламеняющихся веществ?</strong></p>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q2" id="q2a" value="a">
+                                <label for="q2a">Обычное бытовое</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q2" id="q2b" value="b">
+                                <label for="q2b">Взрывозащищенное</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q2" id="q2c" value="c">
+                                <label for="q2c">Любое промышленное</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="correct_q2" value="b">
+                    </div>
+                    
+                    <!-- Вопрос 3 -->
+                    <div class="question">
+                        <p><strong>3. Какое минимальное расстояние от открытого огня должно соблюдаться при работе с горючими материалами?</strong></p>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q3" id="q3a" value="a">
+                                <label for="q3a">5 метров</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q3" id="q3b" value="b">
+                                <label for="q3b">20 метров</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q3" id="q3c" value="c">
+                                <label for="q3c">50 метров</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="correct_q3" value="c">
+                    </div>
+                    
+                    <!-- Вопрос 4 -->
+                    <div class="question">
+                        <p><strong>4. Как следует утилизировать легковоспламеняющиеся отходы?</strong></p>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" name="q4" id="q4a" value="a">
+                                <label for="q4a">Выливать в канализацию</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q4" id="q4b" value="b">
+                                <label for="q4b">Передавать специализированным организациям</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" name="q4" id="q4c" value="c">
+                                <label for="q4c">Закапывать в землю</label>
+                            </div>
+                        </div>
+                        <input type="hidden" id="correct_q4" value="b">
+                    </div>
+                    
+                    <!-- Вопрос 5 -->
+                    <div class="question">
+                        <p><strong>5. Какие системы пожаротушения наиболее эффективны для легковоспламеняющихся веществ?</strong></p>
+                        <input type="text" id="q5_answer" class="text-answer" placeholder="Введите ответ">
+                        <input type="hidden" id="correct_q5" value="газовые или порошковые">
+                    </div>
+                    
+                    <button type="button" onclick="checkTest()">Проверить ответы</button>
+                </form>
+                
+                <div id="testResults" class="results"></div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<script>
+function checkTest() {
+    let score = 0;
+    let resultsHTML = "<h3>Результаты теста:</h3><ol>";
+    const questions = [
+        {
+            id: 1,
+            type: 'radio',
+            name: 'q1',
+            correct: 'b',
+            answers: {
+                a: 'Выше 100°C',
+                b: 'Ниже 61°C',
+                c: 'Ровно 0°C'
+            },
+            correctText: 'Ниже 61°C'
+        },
+        {
+            id: 2,
+            type: 'radio',
+            name: 'q2',
+            correct: 'b',
+            answers: {
+                a: 'Обычное бытовое',
+                b: 'Взрывозащищенное',
+                c: 'Любое промышленное'
+            },
+            correctText: 'Взрывозащищенное'
+        },
+        {
+            id: 3,
+            type: 'radio',
+            name: 'q3',
+            correct: 'c',
+            answers: {
+                a: '5 метров',
+                b: '20 метров',
+                c: '50 метров'
+            },
+            correctText: '50 метров'
+        },
+        {
+            id: 4,
+            type: 'radio',
+            name: 'q4',
+            correct: 'b',
+            answers: {
+                a: 'Выливать в канализацию',
+                b: 'Передавать специализированным организациям',
+                c: 'Закапывать в землю'
+            },
+            correctText: 'Передавать специализированным организациям'
+        },
+        {
+            id: 5,
+            type: 'text',
+            name: 'q5_answer',
+            correct: 'газовые или порошковые',
+            correctText: 'газовые или порошковые'
+        }
+    ];
+
+    questions.forEach(question => {
+        if (question.type === 'radio') {
+            const selected = document.querySelector(`input[name="${question.name}"]:checked`);
+            
+            if (selected && selected.value === question.correct) {
+                score++;
+                resultsHTML += `<li class="correct">Вопрос ${question.id}: Правильно! Ваш ответ: ${question.answers[selected.value]}</li>`;
+            } else {
+                const userAnswer = selected ? question.answers[selected.value] : "Нет ответа";
+                resultsHTML += `<li class="incorrect">Вопрос ${question.id}: Неправильно. Ваш ответ: ${userAnswer}. Правильный ответ: ${question.correctText}</li>`;
+            }
+        } else if (question.type === 'text') {
+            const answer = document.getElementById(question.name).value.trim().toLowerCase();
+            if (answer.includes(question.correct.toLowerCase())) {
+                score++;
+                resultsHTML += `<li class="correct">Вопрос ${question.id}: Правильно! Ваш ответ: ${answer}</li>`;
+            } else {
+                resultsHTML += `<li class="incorrect">Вопрос ${question.id}: Неверно. Ваш ответ: ${answer || "Нет ответа"}. Правильный ответ: ${question.correctText}</li>`;
+            }
+        }
+    });
+    
+    resultsHTML += `</ol><p><strong>Итоговый результат: ${score} из ${questions.length} (${Math.round(score/questions.length*100)}%)</strong></p>`;
+    document.getElementById('testResults').innerHTML = resultsHTML;
+    document.getElementById('testResults').style.display = 'block';
+}
+</script>
+<footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/gazprom-logo-white.png" alt="Логотип Газпрома">
+                    <h2>ПАО «Газпром»</h2>
+                </div>
+                <p>Корпоративный обучающий портал для сотрудников компании</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Телефон: +7 (495) 719-30-01</li>
+                    <li>Email: training@gazprom.ru</li>
+                    <li>Адрес: Уфа, ул. Пугачева, 112/1</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="doki/">Документы</a></li>
+                    <li><a href="bezopasnost-base/">Безопасность</a></li>
+                    <li><a href="knowledge-base/">Техническая база</a></li>
+                    <li><a href="inzident/">Инциденты и решения</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; ${new Date().getFullYear()} ПАО «Газпром». Все права защищены.<br>
+            Сайт предназначен исключительно для внутреннего использования сотрудниками компании.
+        </div>
+    </footer>
+</body>
+</html>

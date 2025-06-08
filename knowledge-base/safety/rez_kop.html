@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Теория и практика резервного копирования: полное руководство</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Стили для header */
+        /* Шапка */
+        :root {
+  --primary: #4A89DC;           /* Основной голубой */
+  --primary-light: #E4F1FE;     /* Светлый голубой фон */
+  --primary-dark: #3B7DD8;      /* Темный голубой для ховеров */
+  --accent: #5D9CEC;            /* Акцентный голубой */
+  --background: #F9FCFF;        /* Очень светлый голубой фон */
+  --text-dark: #2C3E50;         /* Основной текст */
+  --text-light: #FFFFFF;        /* Белый текст */
+  --border-radius: 10px;        /* Скругление углов */
+  --box-shadow: 0 4px 20px rgba(93, 156, 236, 0.15); /* Голубая тень */
+  --card-bg: #FFFFFF;           /* Фон карточек */
+  --border-color: #D6E4F0;      /* Цвет границ */
+}
+
+        header {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 1.2rem 2rem;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--text-light);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+            
+        /* Основные стили */
+        body {
+            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .centered-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: left;
+            background-color: #ffffff;
+        }
+        
+        .kb-article h1 {
+            color: #000000;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #000000;
+            margin-top: 25px;
+        }
+        
+        .meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Стили для блоков */
+        .protection-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .method-card {
+            flex: 1 1 300px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3182ce;
+        }
+        
+        /* Стили для таблиц */
+        .encryption-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .encryption-comparison th, 
+        .encryption-comparison td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .encryption-comparison th {
+            background-color: #f2f2f2;
+        }
+        
+        /* Стили для важных заметок */
+        .security-alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #e53e3e;
+            background-color: #fff5f5;
+            border-radius: 4px;
+        }
+        
+        /* Стили для теста */
+        .test-container {
+            margin: 40px 0;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .options {
+            margin-left: 5px;
+        }
+        
+        .option {
+            margin: 12px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #a0aec0;
+            border-radius: 50%;
+            margin-right: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option input[type="checkbox"] {
+            border-radius: 4px;
+        }
+        
+        .option input[type="radio"]:checked,
+        .option input[type="checkbox"]:checked {
+            border-color: #3182ce;
+            background-color: #3182ce;
+        }
+        
+        .option input[type="radio"]:checked::after,
+        .option input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .option label {
+            cursor: pointer;
+            color: #000000;
+        }
+        
+        .text-answer {
+            width: 100%;
+            padding: 12px 15px;
+            margin-top: 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+        }
+        
+        button[type="button"] {
+            padding: 12px 24px;
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 25px auto 0;
+            display: block;
+        }
+        
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+        
+        .correct {
+            color: #38a169;
+        }
+        
+        .incorrect {
+            color: #e53e3e;
+        }
+        
+        @media (max-width: 768px) {
+            .protection-methods {
+                flex-direction: column;
+            }
+            
+            .encryption-comparison {
+                font-size: 0.85rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+        }
+        
+        /* Стили для подвала */
+        footer {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 3rem 1rem;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            line-height: 1.9;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.2rem 0;
+        }
+
+        .footer-section a:hover {
+            color: var(--text-light);
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-contact svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-section {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Газпром">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="doki/">Документы</a></li>
+                    <li><a href="bezopasnost-base/">Безопасность</a></li>
+                    <li><a href="knowledge-base/">Техническая база</a></li>
+                    <li><a href="inzident/">Инциденты и решения</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<article class="kb-article">
+    <div class="centered-content">
+        <h1><?= $page_title ?></h1>
+        <div class="meta">
+            <span>Категория: <a href="knowledge-base/sysadmin/">Системное администрирование</a></span>
+            <span>Обновлено: <?= date('d.m.Y') ?></span>
+            <span>Время чтения: 18-22 минуты</span>
+        </div>
+
+        <div class="content">
+            <h2>Фундаментальные принципы резервного копирования</h2>
+            <p>Резервное копирование представляет собой процесс создания копий данных с целью их восстановления в случае утраты или повреждения оригинальной информации. В современной IT-инфраструктуре это не просто дополнительная мера предосторожности, а обязательный компонент стратегии защиты данных.</p>
+            
+            <p>Основные причины потери данных, против которых направлено резервное копирование:</p>
+            <ul>
+                <li><strong>Аппаратные сбои:</strong> Выход из строя жестких дисков, SSD-накопителей, RAID-массивов и других носителей информации</li>
+                <li><strong>Человеческий фактор:</strong> Случайное удаление или перезапись важных данных, ошибочные изменения конфигураций</li>
+                <li><strong>Вредоносное ПО:</strong> Вирусы-шифровальщики (ransomware), трояны, другие виды кибератак</li>
+                <li><strong>Природные катастрофы:</strong> Пожары, наводнения, землетрясения, способные уничтожить оборудование</li>
+                <li><strong>Программные сбои:</strong> Ошибки в приложениях, СУБД, операционных системах, ведущие к повреждению данных</li>
+            </ul>
+
+            <div class="security-alert">
+                <h3>Критическая важность резервного копирования</h3>
+                <p>Согласно исследованиям, 60% компаний, потерявших критически важные данные, прекращают свою деятельность в течение шести месяцев после инцидента. При этом 51% потерь данных вызван человеческим фактором, а не техническими неисправностями.</p>
+            </div>
+
+            <h2>Типы резервного копирования: сравнительный анализ</h2>
+            
+            <p>В современных системах применяются три основных метода резервного копирования, каждый из которых имеет свои преимущества и ограничения:</p>
+            
+            <div class="method-card">
+                <h3>1. Полное резервное копирование (Full Backup)</h3>
+                <p>Полное копирование предполагает создание копии всех выбранных данных без исключений. Это наиболее надежный и простой в восстановлении метод, но он требует значительных ресурсов хранения и времени выполнения.</p>
+                <p><strong>Преимущества:</strong></p>
+                <ul>
+                    <li>Простота восстановления - все данные содержатся в одном месте</li>
+                    <li>Быстрое время восстановления</li>
+                    <li>Не требует сложных цепочек восстановления</li>
+                </ul>
+                <p><strong>Недостатки:</strong></p>
+                <ul>
+                    <li>Требует большого объема хранилища</li>
+                    <li>Длительное время выполнения</li>
+                    <li>Высокая нагрузка на сеть и системы</li>
+                </ul>
+            </div>
+            
+            <div class="method-card">
+                <h3>2. Инкрементное копирование (Incremental Backup)</h3>
+                <p>Инкрементный метод копирует только те данные, которые изменились с момента последнего резервного копирования любого типа. Это значительно экономит место и время, но усложняет процесс восстановления.</p>
+                <p><strong>Преимущества:</strong></p>
+                <ul>
+                    <li>Минимальный объем хранилища</li>
+                    <li>Быстрое выполнение</li>
+                    <li>Низкая нагрузка на систему</li>
+                </ul>
+                <p><strong>Недостатки:</strong></p>
+                <ul>
+                    <li>Сложное восстановление - требуется цепочка из полной копии и всех последующих инкрементных</li>
+                    <li>Риск потери данных при повреждении одного звена цепочки</li>
+                    <li>Длительное время восстановления</li>
+                </ul>
+            </div>
+            
+            <div class="method-card">
+                <h3>3. Дифференциальное копирование (Differential Backup)</h3>
+                <p>Дифференциальный метод сохраняет все изменения, произошедшие с момента последнего полного копирования. Это компромисс между полным и инкрементным методами.</p>
+                <p><strong>Преимущества:</strong></p>
+                <ul>
+                    <li>Более простое восстановление, чем у инкрементного метода</li>
+                    <li>Меньший объем хранилища, чем при полном копировании</li>
+                    <li>Быстрее восстановление, чем при инкрементном методе</li>
+                </ul>
+                <p><strong>Недостатки:</strong></p>
+                <ul>
+                    <li>Требует больше места, чем инкрементный метод</li>
+                    <li>Время выполнения увеличивается с каждым последующим копированием</li>
+                    <li>Все еще требует цепочки восстановления (полная + последняя дифференциальная копия)</li>
+                </ul>
+            </div>
+
+            <h2>Правило 3-2-1-1-0: современный стандарт защиты данных</h2>
+            
+            <p>Классическое правило 3-2-1 было расширено для соответствия современным угрозам. Рассмотрим каждую его составляющую подробно:</p>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Компонент</th>
+                    <th>Описание</th>
+                    <th>Практическая реализация</th>
+                </tr>
+                <tr>
+                    <td><strong>3 копии</strong></td>
+                    <td>Оригинальные данные и две дополнительные копии</td>
+                    <td>Основные данные на рабочих серверах + две отдельные резервные копии</td>
+                </tr>
+                <tr>
+                    <td><strong>2 разных носителя</strong></td>
+                    <td>Использование различных типов хранилищ</td>
+                    <td>Например, HDD + ленточные накопители или SSD + облачное хранилище</td>
+                </tr>
+                <tr>
+                    <td><strong>1 копия вне офиса</strong></td>
+                    <td>Географическое разделение копий</td>
+                    <td>Облачное хранилище или резервный дата-центр в другом регионе</td>
+                </tr>
+                <tr>
+                    <td><strong>1 иммутабельная копия</strong></td>
+                    <td>Неизменяемая (WORM) копия для защиты от ransomware</td>
+                    <td>Запись на ленту или использование S3 Object Lock в облаке</td>
+                </tr>
+                <tr>
+                    <td><strong>0 ошибок при проверке</strong></td>
+                    <td>Регулярное тестирование восстановления</td>
+                    <td>Ежеквартальные тесты восстановления с фиксацией результатов</td>
+                </tr>
+            </table>
+
+            <h2>Технологии и решения для резервного копирования</h2>
+            
+            <p>Современный рынок предлагает множество решений для резервного копирования, от простых встроенных утилит до комплексных корпоративных систем. Рассмотрим ключевые категории:</p>
+            
+            <h3>1. Встроенные средства операционных систем</h3>
+            <p>Большинство ОС включают базовые инструменты для резервного копирования:</p>
+            
+            <div class="code-example">
+                <span class="code-comment"># Windows Server Backup (PowerShell)</span><br>
+                Install-WindowsFeature -Name Windows-Server-Backup<br>
+                $policy = New-WBPolicy<br>
+                $backupLocation = New-WBBackupTarget -VolumePath "E:"<br>
+                Add-WBBackupTarget -Policy $policy -Target $backupLocation<br>
+                Add-WBVolume -Policy $policy -VolumePath "C:"<br>
+                Start-WBBackup -Policy $policy
+            </div>
+            
+            <div class="code-example">
+                <span class="code-comment"># Linux (tar + cron для автоматизации)</span><br>
+                tar -czvf /backups/full-backup-$(date +%F).tar.gz /var/www /etc /home<br>
+                <span class="code-comment"># Добавляем в cron для ежедневного выполнения:</span><br>
+                0 2 * * * root tar -czvf /backups/daily-$(date +\%F).tar.gz --newer-mtime="1 day ago" /var/www /etc /home
+            </div>
+            
+            <h3>2. Специализированное программное обеспечение</h3>
+            <p>Профессиональные решения предлагают расширенные возможности:</p>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Решение</th>
+                    <th>Тип</th>
+                    <th>Ключевые особенности</th>
+                </tr>
+                <tr>
+                    <td>Veeam Backup & Replication</td>
+                    <td>Коммерческое</td>
+                    <td>Поддержка виртуальных сред, мгновенное восстановление VM, интеграция с облаками</td>
+                </tr>
+                <tr>
+                    <td>Acronis Cyber Backup</td>
+                    <td>Коммерческое</td>
+                    <td>Защита от ransomware, гибридное облако, поддержка физических и виртуальных систем</td>
+                </tr>
+                <tr>
+                    <td>Bacula</td>
+                    <td>Open-source</td>
+                    <td>Модульная архитектура, поддержка ленточных библиотек, низкие требования к ресурсам</td>
+                </tr>
+                <tr>
+                    <td>Duplicati</td>
+                    <td>Open-source</td>
+                    <td>Шифрование, дедупликация, поддержка облачных хранилищ</td>
+                </tr>
+            </table>
+
+            <h2>Практические аспекты реализации</h2>
+            
+            <h3>1. Планирование стратегии резервного копирования</h3>
+            <p>Эффективная стратегия должна учитывать:</p>
+            <ul>
+                <li><strong>Критичность данных:</strong> Классификация данных по важности и частоте изменений</li>
+                <li><strong>RPO (Recovery Point Objective):</strong> Максимально допустимый период потери данных</li>
+                <li><strong>RTO (Recovery Time Objective):</strong> Максимально допустимое время восстановления</li>
+                <li><strong>Ресурсы:</strong> Доступные вычислительные мощности, сетевую инфраструктуру и бюджет</li>
+            </ul>
+            
+            <h3>2. Организация хранилища резервных копий</h3>
+            <p>Оптимальная архитектура хранилища включает:</p>
+            
+            <div class="method-card">
+                <h3>Многоуровневая система хранения</h3>
+                <ul>
+                    <li><strong>Горячий уровень:</strong> Быстрые SSD/NVMe для частых инкрементных копий</li>
+                    <li><strong>Теплый уровень:</strong> HDD-массивы для еженедельных полных копий</li>
+                    <li><strong>Холодный уровень:</strong> Ленточные библиотеки или облако для архивных копий</li>
+                    <li><strong>Иммутабельное хранилище:</strong> WORM-носители для защиты от ransomware</li>
+                </ul>
+            </div>
+            
+            <h3>3. Автоматизация и мониторинг</h3>
+            <p>Ключевые компоненты автоматизированной системы:</p>
+            
+            <div class="code-example">
+                <span class="code-comment"># Пример скрипта мониторинга состояния backup'ов</span><br>
+                $backupDir = "\\backup-srv\share$\*"<br>
+                $threshold = (Get-Date).AddDays(-2)<br>
+                $alertSent = $false<br><br>
+                
+                <span class="code-comment"># Проверяем наличие свежих копий</span><br>
+                Get-ChildItem $backupDir -Recurse | Where {<br>
+                &nbsp;&nbsp;if ($_.LastWriteTime -lt $threshold) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;$alertSent = $true<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Write-EventLog -LogName "Application" -Source "Backup Monitor" `<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-EntryType Error -EventId 1001 `<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-Message "Обнаружены устаревшие резервные копии: $($_.FullName)"<br>
+                &nbsp;&nbsp;}<br>
+                }<br><br>
+                
+                if ($alertSent) {<br>
+                &nbsp;&nbsp;Send-MailMessage -From "backup-monitor@company.com" -To "admin@company.com" `<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;-Subject "[CRITICAL] Проблемы с резервным копированием" `<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;-Body "Некоторые резервные копии не обновлялись более 2 дней" `<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;-Priority High -SmtpServer "mail.company.com"<br>
+                }
+            </div>
+
+            <div class="test-container">
+            <h2>Проверка знаний</h2>
+            <form id="backupTest">
+                
+                <div class="question">
+                    <p><strong>1. Какие из перечисленных методов резервного копирования требуют для восстановления только последнюю полную копию и последнюю дифференциальную?</strong></p>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1a" value="a">
+                            <label for="q1a">Полное + инкрементное</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1b" value="b">
+                            <label for="q1b">Полное + дифференциальное</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="q1" id="q1c" value="c">
+                            <label for="q1c">Только полное</label>
+                        </div>
+                    </div>
+                    <input type="hidden" id="correct_q1" value="b">
+                </div>
+                
+                <div class="question">
+                    <p><strong>2. Какие компоненты входят в современное правило 3-2-1-1-0? (Выберите все верные)</strong></p>
+                    <div class="options">
+                        <div class="option">
+                            <input type="checkbox" name="q2" id="q2a" value="a">
+                            <label for="q2a">3 копии данных</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="q2" id="q2b" value="b">
+                            <label for="q2b">2 разных типа носителей</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="q2" id="q2c" value="c">
+                            <label for="q2c">1 копия в облаке</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="q2" id="q2d" value="d">
+                            <label for="q2d">1 иммутабельная копия</label>
+                        </div>
+                    </div>
+                    <input type="hidden" id="correct_q2" value="a,b,d">
+                </div>
+                
+                <div class="question">
+                    <p><strong>3. Опишите преимущества и недостатки инкрементного метода резервного копирования.</strong></p>
+                    <textarea id="q3_answer" class="text-answer" rows="4"></textarea>
+                    <input type="hidden" id="correct_q3_keywords" value="экономия места,быстрое выполнение,сложное восстановление,цепочка копий">
+                </div>
+                
+                <button type="button" onclick="checkBackupTest()">Проверить ответы</button>
+            </form>
+            
+            <div id="testResults" class="results"></div>
+        </div>
+    </div>
+</article>
+<footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/gazprom-logo-white.png" alt="Логотип Газпрома">
+                    <h2>ПАО «Газпром»</h2>
+                </div>
+                <p>Корпоративный обучающий портал для сотрудников компании</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Телефон: +7 (495) 719-30-01</li>
+                    <li>Email: training@gazprom.ru</li>
+                    <li>Адрес: Уфа, ул. Пугачева, 112/1</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="doki/">Документы</a></li>
+                    <li><a href="bezopasnost-base/">Безопасность</a></li>
+                    <li><a href="knowledge-base/">Техническая база</a></li>
+                    <li><a href="inzident/">Инциденты и решения</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 ПАО «Газпром». Все права защищены.<br>
+            Сайт предназначен исключительно для внутреннего использования сотрудниками компании.
+        </div>
+    </footer>
+<script>
+function checkBackupTest() {
+    let score = 0;
+    let resultsHTML = "<h3>Результаты теста:</h3><ol>";
+    const keywordThreshold = 2; // Минимальное количество ключевых слов для зачета
+    
+    // Вопрос 1
+    const q1Selected = document.querySelector('input[name="q1"]:checked');
+    if (q1Selected && q1Selected.value === document.getElementById('correct_q1').value) {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 1: Верно! Для дифференциального метода нужно последнее полное копирование и последняя дифференциальная копия.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 1: Неверно. Правильный ответ: Полное + дифференциальное.</li>`;
+    }
+    
+    // Вопрос 2
+    const q2Selected = Array.from(document.querySelectorAll('input[name="q2"]:checked')).map(el => el.value).sort().join(',');
+    const q2Correct = document.getElementById('correct_q2').value.split(',').sort().join(',');
+    if (q2Selected === q2Correct) {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 2: Правильно! Все выбранные элементы входят в правило 3-2-1-1-0.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 2: Неполный ответ. Правило включает: 3 копии, 2 носителя, 1 вне офиса, 1 иммутабельная.</li>`;
+    }
+    
+    // Вопрос 3
+    const q3Answer = document.getElementById('q3_answer').value.toLowerCase();
+    const q3Keywords = document.getElementById('correct_q3_keywords').value.split(',');
+    let foundKeywords = q3Keywords.filter(word => q3Answer.includes(word));
+    
+    if (foundKeywords.length >= keywordThreshold) {
+        score++;
+        resultsHTML += `<li class="correct">Вопрос 3: Принято! Вы указали ключевые аспекты инкрементного копирования.</li>`;
+    } else {
+        resultsHTML += `<li class="incorrect">Вопрос 3: Ответ недостаточно полный. Основные аспекты: экономия места, быстрое выполнение, сложное восстановление, цепочка копий.</li>`;
+    }
+    
+    resultsHTML += `</ol><p><strong>Итоговый результат: ${score} из 3 (${Math.round(score/3*100)}%)</strong></p>`;
+    document.getElementById('testResults').innerHTML = resultsHTML;
+    document.getElementById('testResults').style.display = 'block';
+}
+</script>
+
+</body>
+</html>

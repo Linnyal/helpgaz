@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нормативные документы</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Иконки Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      :root {
+  --primary: #4A89DC;           /* Основной голубой */
+  --primary-light: #E4F1FE;     /* Светлый голубой фон */
+  --primary-dark: #3B7DD8;      /* Темный голубой для ховеров */
+  --accent: #5D9CEC;            /* Акцентный голубой */
+  --background: #F9FCFF;        /* Очень светлый голубой фон */
+  --text-dark: #2C3E50;         /* Основной текст */
+  --text-light: #FFFFFF;        /* Белый текст */
+  --border-radius: 10px;        /* Скругление углов */
+  --box-shadow: 0 4px 20px rgba(93, 156, 236, 0.15); /* Голубая тень */
+  --card-bg: #FFFFFF;           /* Фон карточек */
+  --border-color: #D6E4F0;      /* Цвет границ */
+}
+      /* Шапка */
+header {
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: 1.2rem 2rem;
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+nav ul {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--text-light);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+nav a.active {
+  font-weight: 600;
+}
+
+nav a.active::after {
+  width: 100%;
+}
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .content-wrapper {
+            flex: 1;
+        }
+        .document-card {
+            transition: transform 0.2s;
+            border-left: 4px solid #007bff;
+            margin-bottom: 25px;
+            height: 100%;
+        }
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .badge-gost {
+            background-color: #28a745;
+        }
+        .badge-internal {
+            background-color: #6c757d;
+        }
+        .badge-template {
+            background-color: #6f42c1;
+        }
+        .search-container {
+            margin-bottom: 30px;
+        }
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .category-btn {
+            white-space: nowrap;
+        }
+        .document-description {
+            color: #6c757d;
+            margin-bottom: 12px;
+        }
+        .document-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .no-results {
+            padding: 1.5rem;
+            background-color: #fff5f5;
+            border: 1px solid #ffebee;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+            display: none;
+        }
+        .document-grid {
+            margin-bottom: 40px;
+        }
+        footer {
+            margin-top: auto;
+        }
+         /* Стили для подвала */
+footer {
+  background-color: var(--primary); /* Основной голубой цвет */
+  color: var(--text-light);
+  padding: 3rem 1rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin-top: 4rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.footer-logo img {
+  height: 50px;
+  filter: brightness(0) invert(1); /* Делаем лого белым */
+  transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover {
+  transform: scale(1.05);
+}
+
+.footer-section h3 {
+  border-bottom: 2px solid var(--accent); /* Акцентный голубой */
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  line-height: 1.9;
+}
+
+.footer-section a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 0.2rem 0;
+}
+
+.footer-section a:hover {
+  color: var(--text-light);
+  transform: translateX(5px);
+  text-decoration: none;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer-contact svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--text-light);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+</style>
+</head>
+<body>
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <img src="images/logo.png" alt="Газпром">
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html" id="nav-home">Главная</a></li>
+            <li><a href="doki/" id="nav-docs">Документы</a></li>
+            <li><a href="bezopasnost-base/" id="nav-safety">Безопасность</a></li>
+            <li><a href="knowledge-base/" id="nav-knowledge">Техническая база</a></li>
+            <li><a href="inzident/" id="nav-incidents">Инциденты и решения</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    
+    <!-- Основной контент -->
+    <main class="content-wrapper">
+        <div class="container py-4">
+            
+            <h1 class="text-center mb-4">Нормативные документы</h1>
+            
+            <!-- Поиск и фильтры -->
+            <div class="search-container">
+                <div class="search-box input-group">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Поиск по документам...">
+                    <button class="btn btn-primary" type="button" id="searchButton">
+                        <i class="fas fa-search"></i> Найти
+                    </button>
+                </div>
+                
+                <div class="category-buttons">
+                    <button class="btn btn-outline-secondary category-btn active" data-filter="all">Все документы</button>
+                    <button class="btn btn-outline-secondary category-btn" data-filter="gost">Стандарты</button>
+                    <button class="btn btn-outline-secondary category-btn" data-filter="internal">Внутренние</button>
+                    <button class="btn btn-outline-secondary category-btn" data-filter="templates">Шаблоны</button>
+                </div>
+            </div>
+            
+            <div id="no-results" class="no-results">
+                <i class="fas fa-search fa-lg mb-2"></i>
+                <h5>Документы не найдены</h5>
+                <p class="mb-0">Попробуйте изменить поисковый запрос или выбрать другую категорию</p>
+            </div>
+
+            <!-- Список документов -->
+            <div class="row document-grid" id="documentsContainer">
+                <!-- Документы будут добавлены через JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap 5 JS + Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Скрипт для работы страницы -->
+    <script>
+        // Массив документов с ссылками на страницы просмотра (без метаданных)
+        const documents = [
+            {
+                id: 5,
+                title: "Шаблон заявления о переводе на другую должность",
+                type: "templates",
+                viewLink: "doki/dok_perevo_d.html",
+                description: "Форма для заявления перевода другую должность"
+            },
+            {
+                id: 8,
+                title: "Кодекс корпоративного управления ПАО «Газпром»",
+                type: "internal",
+                viewLink: "doki/kodeks_gz.html",
+                description: "Кодекс корпоративного управления"
+            },
+            {
+                id: 7,
+                title: "Шаблон журнала учета инструктажей по технике безопасности",
+                type: "templates",
+                viewLink: "doki/tb_jurnal.html",
+                description: "Форма для инструктажей по технике безопасности"
+            },
+            {
+                id: 1,
+                title: "ГОСТ Р ИСО 14001–2016:",
+                type: "gost",
+                viewLink: "doki/gost_ek.html",
+                description: "Система экологического менеджмента"
+            },
+            {
+                id: 6,
+                title: "Шаблон заявления на изменение трудового договора",
+                type: "templates",
+                viewLink: "doki/dogovor_ch.html",
+                description: "Форма для заявления на изменение договора"
+            },
+            {
+                id: 2,
+                title: "ISO 45001:2018",
+                type: "gost",
+                viewLink: "doki/gost_zdorov.html",
+                description: "Системы менеджмента профессиональногоздоровья и безопасности. требования и руководство по применению"
+            },
+            {
+                id: 3,
+                title: "ISO 14001:2015 ",
+                type: "gost",
+                viewLink: "doki/gost_sek.html",
+                description: "Системы экологического менеджмента"
+            },
+            {
+                id: 4,
+                title: "Шаблон акта осмотра оборудования",
+                type: "templates",
+                viewLink: "doki/osmotr_ob.html",
+                description: "Форма для оформления результатов осмотра"
+            },
+            {
+                id: 9,
+                title: "Политика ПАО «Газпром» в области качества",
+                type: "internal",
+                viewLink: "doki/polit_kach.html",
+                description: "Политика качества",
+            },
+            {
+                id: 10,
+                title: "Экологическая политика ПАО «Газпром»",
+                type: "internal",
+                viewLink: "doki/ekolog_p.html",
+                description: "Экологическая политика",
+            }
+        ];
+
+        // Функция для отображения документов
+        function renderDocuments(filter = "all", searchQuery = "") {
+            const container = document.getElementById("documentsContainer");
+            container.innerHTML = "";
+
+            const filteredDocs = documents.filter(doc => {
+                const matchesFilter = filter === "all" || doc.type === filter;
+                const matchesSearch = doc.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                     doc.description.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filteredDocs.length === 0) {
+                document.getElementById('no-results').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('no-results').style.display = 'none';
+            }
+
+            filteredDocs.forEach(doc => {
+                let badgeClass, badgeText;
+                switch(doc.type) {
+                    case "gost":
+                        badgeClass = "badge-gost";
+                        badgeText = "ГОСТ";
+                        break;
+                    case "internal":
+                        badgeClass = "badge-internal";
+                        badgeText = "Внутренний";
+                        break;
+                    case "templates":
+                        badgeClass = "badge-template";
+                        badgeText = "Шаблон";
+                        break;
+                    default:
+                        badgeClass = "bg-secondary";
+                        badgeText = "Документ";
+                }
+
+                const docElement = `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="document-card card h-100">
+                            <div class="card-body">
+                                <span class="badge ${badgeClass} mb-2">${badgeText}</span>
+                                <h5 class="card-title">${doc.title}</h5>
+                                <p class="document-description">${doc.description}</p>
+                                <div class="document-actions">
+                                    <a href="${doc.viewLink}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye me-1"></i> Просмотр
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += docElement;
+            });
+        }
+
+        // Функция для подсветки активного пункта меню
+        function setActiveNavItem() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                
+                // Удаляем завершающий слэш для сравнения
+                const cleanCurrentPath = currentPath.replace(/\/$/, '');
+                const cleanLinkPath = linkPath.replace(/\/$/, '');
+                
+                // Проверяем совпадение пути
+                if (cleanCurrentPath === cleanLinkPath || 
+                    (cleanLinkPath !== '/index.html' && cleanCurrentPath.startsWith(cleanLinkPath))) {
+                    link.classList.add('active');
+                }
+                
+                // Специальная проверка для главной страницы
+                if ((cleanCurrentPath === '' || cleanCurrentPath === '/') && 
+                    (cleanLinkPath === '/index.html' || cleanLinkPath === '/')) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener("DOMContentLoaded", () => {
+            renderDocuments();
+            setActiveNavItem();
+
+            // Фильтрация по кнопкам категорий
+            document.querySelectorAll(".category-btn").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
+                    this.classList.add("active");
+                    renderDocuments(this.dataset.filter, document.getElementById("searchInput").value);
+                });
+            });
+
+            // Поиск при вводе текста
+            document.getElementById("searchInput").addEventListener("input", function() {
+                const activeFilter = document.querySelector(".category-btn.active").dataset.filter;
+                renderDocuments(activeFilter, this.value);
+            });
+
+            // Поиск по кнопке
+            document.getElementById("searchButton").addEventListener("click", function() {
+                const activeFilter = document.querySelector(".category-btn.active").dataset.filter;
+                renderDocuments(activeFilter, document.getElementById("searchInput").value);
+            });
+
+            // Обработка нажатия Enter в поле поиска
+            document.getElementById("searchInput").addEventListener("keypress", function(e) {
+                if (e.key === "Enter") {
+                    const activeFilter = document.querySelector(".category-btn.active").dataset.filter;
+                    renderDocuments(activeFilter, this.value);
+                }
+            });
+        });
+    </script>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/gazprom-logo-white.png" alt="Логотип Газпрома">
+                    <h2>ПАО «Газпром»</h2>
+                </div>
+                <p>Корпоративный обучающий портал для сотрудников компании</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Телефон: +7 (495) 719-30-01</li>
+                    <li>Email: training@gazprom.ru</li>
+                    <li>Адрес: Уфа, ул. Пугачева, 112/1</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="doki/">Документы</a></li>
+                    <li><a href="bezopasnost-base/">Безопасность</a></li>
+                    <li><a href="knowledge-base/">Техническая база</a></li>
+                    <li><a href="inzident/">Инциденты и решения</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; ${new Date().getFullYear()} ПАО «Газпром». Все права защищены.<br>
+            Сайт предназначен исключительно для внутреннего использования сотрудниками компании.
+        </div>
+    </footer>
+</body>
+</html>

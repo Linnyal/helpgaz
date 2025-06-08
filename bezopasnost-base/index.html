@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>База знаний по безопасности</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+  --primary: #4A89DC;           /* Основной голубой */
+  --primary-light: #E4F1FE;     /* Светлый голубой фон */
+  --primary-dark: #3B7DD8;      /* Темный голубой для ховеров */
+  --accent: #5D9CEC;            /* Акцентный голубой */
+  --background: #F9FCFF;        /* Очень светлый голубой фон */
+  --text-dark: #2C3E50;         /* Основной текст */
+  --text-light: #FFFFFF;        /* Белый текст */
+  --border-radius: 10px;        /* Скругление углов */
+  --box-shadow: 0 4px 20px rgba(93, 156, 236, 0.15); /* Голубая тень */
+  --card-bg: #FFFFFF;           /* Фон карточек */
+  --border-color: #D6E4F0;      /* Цвет границ */
+}
+      /* Шапка */
+header {
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: 1.2rem 2rem;
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+nav ul {
+  display: flex;
+  gap: 1.8rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--text-light);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+nav a.active {
+  font-weight: 600;
+}
+
+nav a.active::after {
+  width: 100%;
+}
+        .search-box {
+            margin: 2rem 0;
+            display: flex;
+            max-width: 600px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-box button {
+            padding: 0 1.5rem;
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: #2b6cb0;
+        }
+        
+        .search-highlight {
+            background-color: #ffeb3b;
+            padding: 0 2px;
+        }
+        
+        .no-results {
+            padding: 1rem;
+            background-color: #fff5f5;
+            border: 1px solid #ffebee;
+            border-radius: 4px;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        .category-card {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        
+        .article-item {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .article-item:hover {
+            background-color: #f8fafc;
+        }
+        
+        .hidden-category {
+            display: none;
+        }
+        
+        .visible-category {
+            display: block;
+        }
+        
+        .hidden-article {
+            display: none;
+        }
+                 /* Стили для подвала */
+footer {
+  background-color: var(--primary); /* Основной голубой цвет */
+  color: var(--text-light);
+  padding: 3rem 1rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin-top: 4rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.footer-logo img {
+  height: 50px;
+  filter: brightness(0) invert(1); /* Делаем лого белым */
+  transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover {
+  transform: scale(1.05);
+}
+
+.footer-section h3 {
+  border-bottom: 2px solid var(--accent); /* Акцентный голубой */
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  line-height: 1.9;
+}
+
+.footer-section a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 0.2rem 0;
+}
+
+.footer-section a:hover {
+  color: var(--text-light);
+  transform: translateX(5px);
+  text-decoration: none;
+}
+
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer-contact svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--text-light);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+    </style>
+</head>
+<body>
+   <header>
+      <div class="header-container">
+        <div class="logo">
+          <img src="images/logo.png" alt="Газпром">
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html" id="nav-home">Главная</a></li>
+            <li><a href="doki/" id="nav-docs">Документы</a></li>
+            <li><a href="bezopasnost-base/" id="nav-safety">Безопасность</a></li>
+            <li><a href="knowledge-base/" id="nav-knowledge">Техническая база</a></li>
+            <li><a href="inzident/" id="nav-incidents">Инциденты и решения</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+<div class="knowledge-base">
+    <div class="container">   
+        <h1>База знаний по безопасности</h1>
+        
+        <!-- Поиск -->
+        <div class="search-box">
+            <input type="text" placeholder="Поиск по статьям..." id="search-input" autocomplete="off">
+            <button onclick="performSearch()">Найти</button>
+        </div>
+        
+        <div id="no-results" class="no-results">
+            По вашему запросу ничего не найдено. Попробуйте изменить поисковый запрос.
+        </div>
+
+        <!-- Категории -->
+        <div class="category-list" id="category-container">
+            
+            <!-- Категория 1 -->
+            <div class="category-card" data-category="Пожарная безопасность">
+                <h2>Пожарная безопасность</h2>
+                <div class="article-list">
+                    <div class="article-item" data-title="Введение в пожарную безопасность" data-description="Основные понятия и значение пожарной безопасности на рабочих местах.">
+                        <a href="bezopasnost-base/vveden_v_bz.html">Введение в пожарную безопасность</a>
+                        <p>Основные понятия и значение пожарной безопасности на рабочих местах.</p>
+                    </div>
+                    <div class="article-item" data-title="Общие правила поведения при пожаре" data-description="Как действовать при обнаружении дыма или огня: пошаговая инструкция.">
+                        <a href="bezopasnost-base/povidenie.html">Общие правила поведения при пожаре</a>
+                        <p>Как действовать при обнаружении дыма или огня: пошаговая инструкция.</p>
+                    </div>
+                    <div class="article-item" data-title="Правила безопасности с электрооборудованием" data-description="Как предотвратить возгорание из-за неисправного оборудования.">
+                        <a href="bezopasnost-base/bzz_electro.html">Правила безопасности с электрооборудованием</a>
+                        <p>Как предотвратить возгорание из-за неисправного оборудования.</p>
+                    </div>
+                    <div class="article-item" data-title="Безопасное обращение с огнеопасными материалами" data-description="Правила хранения и использования легковоспламеняющихся веществ.">
+                        <a href="bezopasnost-base/ogneopas_mat.html">Безопасное обращение с огнеопасными материалами</a>
+                        <p>Правила хранения и использования легковоспламеняющихся веществ.</p>
+                    </div>
+                    <div class="article-item" data-title="Огнетушители и их использование" data-description="Виды огнетушителей и как правильно ими пользоваться.">
+                        <a href="bezopasnost-base/ognetush.html">Огнетушители и их использование</a>
+                        <p>Виды огнетушителей и как правильно ими пользоваться.</p>
+                    </div>
+                    <div class="article-item" data-title="Пожарная безопасность в офисе" data-description="Создание безопасной рабочей среды: рекомендации для офисных сотрудников.">
+                        <a href="bezopasnost-base/ofis_bz.html">Пожарная безопасность в офисе</a>
+                        <p>Создание безопасной рабочей среды: рекомендации для офисных сотрудников.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Категория 2 -->
+            <div class="category-card" data-category="Информационная безопасность">
+                <h2>Информационная безопасность</h2>
+                <div class="article-list">
+                    <div class="article-item" data-title="Защита конфиденциальной информации" data-description="Основы информационной безопасности на предприятиях.">
+                        <a href="bezopasnost-base/konf_inf.html">Защита конфиденциальной информации</a>
+                        <p>Основы информационной безопасности на предприятиях.</p>
+                    </div>
+                    <div class="article-item" data-title="Правила работы с корпоративной электронной почтой" data-description="Безопасное использование электронной почты в рабочих целях.">
+                        <a href="bezopasnost-base/pochta.html">Правила работы с корпоративной электронной почтой</a>
+                        <p>Безопасное использование электронной почты в рабочих целях.</p>
+                    </div>
+                    <div class="article-item" data-title="Обнаружение и предотвращение кибератак" data-description="Методы выявления и защиты от киберугроз.">
+                        <a href="bezopasnost-base/obnaruj_kibera.html">Обнаружение и предотвращение кибератак</a>
+                        <p>Методы выявления и защиты от киберугроз.</p>
+                    </div>
+                    <div class="article-item" data-title="План реагирования на инциденты информационной безопасности" data-description="Процедуры действий при нарушениях информационной безопасности.">
+                        <a href="bezopasnost-base/plan_infbz.html">План реагирования на инциденты информационной безопасности</a>
+                        <p>Процедуры действий при нарушениях информационной безопасности.</p>
+                    </div>
+                    <div class="article-item" data-title="Безопасность мобильных устройств в корпоративной среде" data-description="Защита данных при использовании мобильных устройств.">
+                        <a href="bezopasnost-base/bz_mobilet.html">Безопасность мобильных устройств в корпоративной среде</a>
+                        <p>Защита данных при использовании мобильных устройств.</p>
+                    </div>
+                    <div class="article-item" data-title="Резервное копирование данных: важность и методы" data-description="Стратегии и технологии резервного копирования информации.">
+                        <a href="bezopasnost-base/rezerf_kop.html">Резервное копирование данных: важность и методы</a>
+                        <p>Стратегии и технологии резервного копирования информации.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Категория 3 -->
+            <div class="category-card" data-category="Промышленная безопасность">
+                <h2>Промышленная безопасность</h2>
+                <div class="article-list">
+                    <div class="article-item" data-title="Основные требования к промышленной безопасности на производстве" data-description="Ключевые нормы и правила промышленной безопасности.">
+                        <a href="bezopasnost-base/promish_bz.html">Основные требования к промышленной безопасности на производстве</a>
+                        <p>Ключевые нормы и правила промышленной безопасности.</p>
+                    </div>
+                    <div class="article-item" data-title="Безопасные технологии работы с газовым оборудованием" data-description="Меры предосторожности при работе с газовыми системами.">
+                        <a href="bezopasnost-base/rab_sgaz.html">Безопасные технологии работы с газовым оборудованием</a>
+                        <p>Меры предосторожности при работе с газовыми системами.</p>
+                    </div>
+                    <div class="article-item" data-title="Правила работы на опасных производственных участках" data-description="Особенности работы в зонах повышенной опасности.">
+                        <a href="bezopasnost-base/pravila_opuch.html">Правила работы на опасных производственных участках</a>
+                        <p>Особенности работы в зонах повышенной опасности.</p>
+                    </div>
+                    <div class="article-item" data-title="Использование средств индивидуальной защиты (СИЗ)" data-description="Правила применения средств индивидуальной защиты.">
+                        <a href="bezopasnost-base/infid_za.html">Использование средств индивидуальной защиты (СИЗ)</a>
+                        <p>Правила применения средств индивидуальной защиты.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Функция для выполнения поиска
+function performSearch() {
+    const searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
+    const articles = document.querySelectorAll('.article-item');
+    const categories = document.querySelectorAll('.category-card');
+    const noResults = document.getElementById('no-results');
+    let hasResults = false;
+    
+    // Сначала сбросим предыдущие результаты
+    resetSearch();
+    
+    if (searchTerm === '') {
+        return; // Не ищем пустую строку
+    }
+    
+    // Ищем по статьям
+    articles.forEach(article => {
+        const title = article.dataset.title.toLowerCase();
+        const description = article.dataset.description.toLowerCase();
+        const linkText = article.querySelector('a').textContent.toLowerCase();
+        const pText = article.querySelector('p').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || 
+            description.includes(searchTerm) || 
+            linkText.includes(searchTerm) ||
+            pText.includes(searchTerm)) {
+            
+            // Показываем статью
+            article.classList.remove('hidden-article');
+            
+            // Подсвечиваем совпадения
+            highlightMatches(article, searchTerm);
+            
+            // Показываем родительскую категорию
+            const category = article.closest('.category-card');
+            category.classList.remove('hidden-category');
+            category.classList.add('visible-category');
+            
+            hasResults = true;
+        } else {
+            article.classList.add('hidden-article');
+        }
+    });
+    
+    // Проверяем, есть ли видимые статьи в каждой категории
+    categories.forEach(category => {
+        const visibleArticles = category.querySelectorAll('.article-item:not(.hidden-article)');
+        if (visibleArticles.length === 0) {
+            category.classList.add('hidden-category');
+            category.classList.remove('visible-category');
+        } else {
+            category.classList.remove('hidden-category');
+            category.classList.add('visible-category');
+        }
+    });
+    
+    // Показываем сообщение, если нет результатов
+    noResults.style.display = hasResults ? 'none' : 'block';
+}
+
+// Функция для подсветки совпадений
+function highlightMatches(element, searchTerm) {
+    const title = element.querySelector('a');
+    const description = element.querySelector('p');
+    
+    // Подсвечиваем в заголовке
+    highlightText(title, searchTerm);
+    
+    // Подсвечиваем в описании
+    if (description) {
+        highlightText(description, searchTerm);
+    }
+}
+
+// Функция для подсветки текста в элементе
+function highlightText(element, searchTerm) {
+    const text = element.textContent;
+    const regex = new RegExp(escapeRegExp(searchTerm), 'gi');
+    const highlightedText = text.replace(regex, match => 
+        `<span class="search-highlight">${match}</span>`
+    );
+    element.innerHTML = highlightedText;
+}
+
+// Экранирование специальных символов для RegExp
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Функция для сброса поиска
+function resetSearch() {
+    // Показываем все статьи и категории
+    document.querySelectorAll('.article-item').forEach(article => {
+        article.classList.remove('hidden-article');
+        
+        // Убираем подсветку
+        const title = article.querySelector('a');
+        const description = article.querySelector('p');
+        
+        if (title) {
+            title.innerHTML = title.textContent;
+        }
+        
+        if (description) {
+            description.innerHTML = description.textContent;
+        }
+    });
+    
+    document.querySelectorAll('.category-card').forEach(category => {
+        category.classList.remove('hidden-category');
+        category.classList.add('visible-category');
+    });
+    
+    document.getElementById('no-results').style.display = 'none';
+}
+
+// Добавляем обработчики событий
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработчик нажатия Enter в поле поиска
+    document.getElementById('search-input').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    // Обработчик очистки поиска при изменении поля
+    document.getElementById('search-input').addEventListener('input', function(e) {
+        if (this.value.trim() === '') {
+            resetSearch();
+        }
+    });
+});
+</script>
+<footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/gazprom-logo-white.png" alt="Логотип Газпрома">
+                    <h2>ПАО «Газпром»</h2>
+                </div>
+                <p>Корпоративный обучающий портал для сотрудников компании</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Телефон: +7 (495) 719-30-01</li>
+                    <li>Email: training@gazprom.ru</li>
+                    <li>Адрес: Уфа, ул. Пугачева, 112/1</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Разделы</h3>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="doki/">Документы</a></li>
+                    <li><a href="bezopasnost-base/">Безопасность</a></li>
+                    <li><a href="knowledge-base/">Техническая база</a></li>
+                    <li><a href="inzident/">Инциденты и решения</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; ${new Date().getFullYear()} ПАО «Газпром». Все права защищены.<br>
+            Сайт предназначен исключительно для внутреннего использования сотрудниками компании.
+        </div>
+    </footer>
+</body>
+</html>
